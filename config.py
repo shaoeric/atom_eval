@@ -18,6 +18,12 @@ LLM_DATASET_CONFIG = {
         "subset_list": [
             "qa_with_reference"       
         ],
+    },
+    "text2sql": {  # text2sql benchmark
+        "dataset_id": os.path.join(DATASETS_DIR, "llm", "text2sql"),  # 使用 dataset_id 覆盖 adapter 中的默认值
+        "subset_list": [
+            "example"
+        ],
     }
 }
 
@@ -35,6 +41,12 @@ LLM_SERVER_CONFIG = {
         'api_key': os.getenv('DEEPSEEK_API_KEY', ''),
         'params': '671B'
     },
+    'Qwen/Qwen3-Next-80B-A3B-Instruct-FP8': {
+        'model': os.getenv('QWEN3_80B', 'Qwen/Qwen3-Next-80B-A3B-Instruct-FP8'),
+        'url': os.getenv('QWEN3_80B_URL'),
+        'api_key': os.getenv('QWEN3_80B_API_KEY', ''),
+        'params': '80B'
+    }
 }
 
 

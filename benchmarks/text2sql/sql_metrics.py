@@ -95,6 +95,9 @@ class SQLASTSimilarity(Metric):
                 results.append(0.0)
                 continue
             
+            pred = pred.replace('\n', ' ').strip(';')
+            ref = ref.replace('\n', ' ').strip(';')
+
             # Tokenize and normalize
             pred_tokens = normalize_sql_tokens(sql_tokenize(pred))
             ref_tokens = normalize_sql_tokens(sql_tokenize(ref))
