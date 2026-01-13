@@ -82,6 +82,8 @@ class Text2SQLAdapter(DefaultDataAdapter):
             
         full_prompt = self.prompt_template.format(schema=schema, question=question)
         
+        # input: [ChatMessageUser(id='084b279f', content='Convert the following question into a SQL query based on the provided schema.\nSchema: CREATE TABLE employees (id INT, name TEXT, department TEXT, salary INT, hire_date DATE);\nQuestion: 查询所有工资超过 5000 的员工姓名和入职日期。\nSQL:', source=None, metadata=None, internal=None, role='user', tool_call_id=None)]
+        # openai request: {'messages': [{'role': 'user', 'content': 'Convert the following question into a SQL query based on the provided schema.\nSchema: CREATE TABLE employees (id INT, name TEXT, department TEXT, salary INT, hire_date DATE);\nQuestion: 查询所有工资超过 5000 的员工姓名和入职日期。\nSQL:'}], 'tools': NOT_GIVEN, 'tool_choice': NOT_GIVEN, 'model': 'Qwen/Qwen3-Next-80B-A3B-Instruct-FP8', 'temperature': 0.0}
         return Sample(
             input=[{'role': 'user', 'content': full_prompt}],
             target=record['ground_truth']

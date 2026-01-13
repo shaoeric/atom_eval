@@ -22,7 +22,8 @@ LLM_DATASET_CONFIG = {
     "text2sql": {  # text2sql benchmark
         "dataset_id": os.path.join(DATASETS_DIR, "llm", "text2sql"),  # 使用 dataset_id 覆盖 adapter 中的默认值
         "subset_list": [
-            "example"
+            "example1",
+            "example2",
         ],
     }
 }

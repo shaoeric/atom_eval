@@ -1,0 +1,142 @@
+2026-01-13 15:47:14 - evalscope - INFO: Running with native backend
+2026-01-13 15:47:14 - evalscope - INFO: Dump task config to ./results/text2sql/Qwen-Qwen3-Next-80B-A3B-Instruct-FP8_80B/configs/task_config_27c11c.yaml
+2026-01-13 15:47:14 - evalscope - INFO: {
+    "model": "Qwen/Qwen3-Next-80B-A3B-Instruct-FP8",
+    "model_id": "Qwen3-Next-80B-A3B-Instruct-FP8",
+    "model_args": {},
+    "model_task": "text_generation",
+    "chat_template": null,
+    "datasets": [
+        "text2sql"
+    ],
+    "dataset_args": {
+        "text2sql": {
+            "name": "text2sql",
+            "dataset_id": "./datasets/llm/text2sql",
+            "output_types": [
+                "generation"
+            ],
+            "subset_list": [
+                "example1",
+                "example2"
+            ],
+            "default_subset": "default",
+            "few_shot_num": 0,
+            "few_shot_random": false,
+            "train_split": null,
+            "eval_split": null,
+            "prompt_template": "Convert the following question into a SQL query based on the provided schema.\nSchema: {schema}\nQuestion: {question}\nSQL:",
+            "few_shot_prompt_template": null,
+            "system_prompt": null,
+            "query_template": null,
+            "pretty_name": "Text2SQL",
+            "description": null,
+            "tags": [
+                "Coding"
+            ],
+            "filters": null,
+            "metric_list": [
+                "sql_ast_sim"
+            ],
+            "aggregation": "mean",
+            "shuffle": false,
+            "shuffle_choices": false,
+            "force_redownload": false,
+            "review_timeout": null,
+            "extra_params": {},
+            "sandbox_config": {}
+        }
+    },
+    "dataset_dir": "/home/ubuntu22/.cache/modelscope/hub/datasets",
+    "dataset_hub": "modelscope",
+    "repeats": 1,
+    "generation_config": {
+        "timeout": 600,
+        "batch_size": 1,
+        "max_tokens": 2048,
+        "temperature": 0.0
+    },
+    "eval_type": "openai_api",
+    "eval_backend": "Native",
+    "eval_config": null,
+    "limit": null,
+    "eval_batch_size": 1,
+    "use_cache": null,
+    "rerun_review": false,
+    "work_dir": "./results/text2sql/Qwen-Qwen3-Next-80B-A3B-Instruct-FP8_80B",
+    "no_timestamp": true,
+    "ignore_errors": false,
+    "debug": false,
+    "seed": 42,
+    "api_url": "http://localhost:5004/v1",
+    "timeout": 600,
+    "stream": null,
+    "judge_strategy": "auto",
+    "judge_worker_num": 1,
+    "judge_model_args": {},
+    "analysis_report": false,
+    "use_sandbox": false,
+    "sandbox_type": "docker",
+    "sandbox_manager_config": {},
+    "evalscope_version": "1.4.1"
+}
+2026-01-13 15:47:14 - evalscope - INFO: Start loading benchmark dataset: text2sql
+2026-01-13 15:47:14 - evalscope - INFO: Loading Text2SQL dataset from local path: ./datasets/llm/text2sql
+2026-01-13 15:47:14 - evalscope - INFO: Start evaluating 2 subsets of the text2sql: ['example1', 'example2']
+2026-01-13 15:47:14 - evalscope - INFO: Evaluating subset: example1
+2026-01-13 15:47:14 - evalscope - INFO: Getting predictions for subset: example1
+2026-01-13 15:47:14 - evalscope - INFO: Processing 80 samples, if data is large, it may take a while.
+2026-01-13 15:47:14 - evalscope - INFO: Loading model for prediction...
+2026-01-13 15:47:14 - evalscope - INFO: Creating model Qwen/Qwen3-Next-80B-A3B-Instruct-FP8 with eval_type=openai_api base_url=http://localhost:5004/v1, config={'timeout': 600, 'retries': 5, 'retry_interval': 10, 'batch_size': 1, 'max_tokens': 2048, 'temperature': 0.0}, model_args={}
+2026-01-13 15:47:14 - evalscope - INFO: Model loaded successfully.
+2026-01-13 15:48:14 - evalscope - INFO: Predicting[text2sql@example1]:   57%| 46/80 [Elapsed: 01:00 < Remaining: 00:38,  1.14s/it]
+2026-01-13 15:49:02 - evalscope - INFO: Predicting[text2sql@example1]:  100%| 80/80 [Elapsed: 01:48 < Remaining: 00:00,  2.39s/it]
+2026-01-13 15:49:02 - evalscope - INFO: Finished getting predictions for subset: example1.
+2026-01-13 15:49:02 - evalscope - INFO: Getting reviews for subset: example1
+2026-01-13 15:49:02 - evalscope - INFO: Reviewing 80 samples, if data is large, it may take a while.
+2026-01-13 15:49:03 - evalscope - INFO: Reviewing[text2sql@example1]:  100%| 80/80 [Elapsed: 00:00 < Remaining: 00:00, 872.39it/s]
+2026-01-13 15:49:03 - evalscope - INFO: Finished reviewing subset: example1. Total reviewed: 80
+2026-01-13 15:49:03 - evalscope - INFO: Aggregating scores for subset: example1
+2026-01-13 15:49:03 - evalscope - INFO: Evaluating [text2sql]  50%| 1/2 [Elapsed: 01:48 < Remaining: 01:48, 108.79s/subset]
+2026-01-13 15:49:03 - evalscope - INFO: Evaluating subset: example2
+2026-01-13 15:49:03 - evalscope - INFO: Getting predictions for subset: example2
+2026-01-13 15:49:03 - evalscope - INFO: Processing 99 samples, if data is large, it may take a while.
+2026-01-13 15:50:03 - evalscope - INFO: Predicting[text2sql@example2]:   67%| 66/99 [Elapsed: 01:00 < Remaining: 00:37,  1.14s/it]
+2026-01-13 15:50:45 - evalscope - INFO: Predicting[text2sql@example2]:  100%| 99/99 [Elapsed: 01:42 < Remaining: 00:00,  2.59s/it]
+2026-01-13 15:50:45 - evalscope - INFO: Finished getting predictions for subset: example2.
+2026-01-13 15:50:45 - evalscope - INFO: Getting reviews for subset: example2
+2026-01-13 15:50:45 - evalscope - INFO: Reviewing 99 samples, if data is large, it may take a while.
+2026-01-13 15:50:45 - evalscope - INFO: Reviewing[text2sql@example2]:  100%| 99/99 [Elapsed: 00:00 < Remaining: 00:00, 1217.01it/s]
+2026-01-13 15:50:45 - evalscope - INFO: Finished reviewing subset: example2. Total reviewed: 99
+2026-01-13 15:50:45 - evalscope - INFO: Aggregating scores for subset: example2
+2026-01-13 15:50:45 - evalscope - INFO: Evaluating [text2sql] 100%| 2/2 [Elapsed: 03:31 < Remaining: 00:00, 105.13s/subset]
+2026-01-13 15:50:45 - evalscope - INFO: Generating report...
+2026-01-13 15:50:45 - evalscope - INFO: 
+text2sql report table:
++---------------------------------+-----------+------------------+----------+-------+---------+---------+
+| Model                           | Dataset   | Metric           | Subset   |   Num |   Score | Cat.0   |
++=================================+===========+==================+==========+=======+=========+=========+
+| Qwen3-Next-80B-A3B-Instruct-FP8 | text2sql  | mean_sql_ast_sim | example1 |    80 |  0.8326 | default |
++---------------------------------+-----------+------------------+----------+-------+---------+---------+
+| Qwen3-Next-80B-A3B-Instruct-FP8 | text2sql  | mean_sql_ast_sim | example2 |    99 |  0.8393 | default |
++---------------------------------+-----------+------------------+----------+-------+---------+---------+
+| Qwen3-Next-80B-A3B-Instruct-FP8 | text2sql  | mean_sql_ast_sim | OVERALL  |   179 |  0.8363 | -       |
++---------------------------------+-----------+------------------+----------+-------+---------+---------+ 
+
+2026-01-13 15:50:45 - evalscope - INFO: Skipping report analysis (`analysis_report=False`).
+2026-01-13 15:50:45 - evalscope - INFO: Dump report to: ./results/text2sql/Qwen-Qwen3-Next-80B-A3B-Instruct-FP8_80B/reports/Qwen3-Next-80B-A3B-Instruct-FP8/text2sql.json 
+
+2026-01-13 15:50:45 - evalscope - INFO: Benchmark text2sql evaluation finished.
+2026-01-13 15:50:45 - evalscope - INFO: Overall report table: 
++---------------------------------+-----------+------------------+----------+-------+---------+---------+
+| Model                           | Dataset   | Metric           | Subset   |   Num |   Score | Cat.0   |
++=================================+===========+==================+==========+=======+=========+=========+
+| Qwen3-Next-80B-A3B-Instruct-FP8 | text2sql  | mean_sql_ast_sim | example1 |    80 |  0.8326 | default |
++---------------------------------+-----------+------------------+----------+-------+---------+---------+
+| Qwen3-Next-80B-A3B-Instruct-FP8 | text2sql  | mean_sql_ast_sim | example2 |    99 |  0.8393 | default |
++---------------------------------+-----------+------------------+----------+-------+---------+---------+
+| Qwen3-Next-80B-A3B-Instruct-FP8 | text2sql  | mean_sql_ast_sim | OVERALL  |   179 |  0.8363 | -       |
++---------------------------------+-----------+------------------+----------+-------+---------+---------+ 
+
+2026-01-13 15:50:45 - evalscope - INFO: Finished evaluation for Qwen3-Next-80B-A3B-Instruct-FP8 on ['text2sql']
+2026-01-13 15:50:45 - evalscope - INFO: Output directory: ./results/text2sql/Qwen-Qwen3-Next-80B-A3B-Instruct-FP8_80B

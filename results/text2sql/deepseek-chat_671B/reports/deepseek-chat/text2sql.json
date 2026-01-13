@@ -1,0 +1,39 @@
+{
+    "name": "deepseek-chat@text2sql",
+    "dataset_name": "text2sql",
+    "dataset_pretty_name": "Text2SQL",
+    "dataset_description": null,
+    "model_name": "deepseek-chat",
+    "score": 0.8027,
+    "metrics": [
+        {
+            "name": "mean_sql_ast_sim",
+            "num": 179,
+            "score": 0.8027,
+            "macro_score": 0.8027,
+            "categories": [
+                {
+                    "name": [
+                        "default"
+                    ],
+                    "num": 179,
+                    "score": 0.8027,
+                    "macro_score": 0.7949,
+                    "subsets": [
+                        {
+                            "name": "example1",
+                            "score": 0.7212,
+                            "num": 80
+                        },
+                        {
+                            "name": "example2",
+                            "score": 0.8686,
+                            "num": 99
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "analysis": "N/A"
+}

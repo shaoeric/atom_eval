@@ -1,0 +1,77 @@
+analysis_report: false
+api_url: https://api.deepseek.com
+chat_template: null
+dataset_args:
+  text2sql:
+    aggregation: mean
+    dataset_id: ./datasets/llm/text2sql
+    default_subset: default
+    description: null
+    eval_split: null
+    extra_params: {}
+    few_shot_num: 0
+    few_shot_prompt_template: null
+    few_shot_random: false
+    filters: null
+    force_redownload: false
+    metric_list:
+    - sql_ast_sim
+    name: text2sql
+    output_types:
+    - generation
+    pretty_name: Text2SQL
+    prompt_template: 'Convert the following question into a SQL query based on the
+      provided schema.
+
+      Schema: {schema}
+
+      Question: {question}
+
+      SQL:'
+    query_template: null
+    review_timeout: null
+    sandbox_config: {}
+    shuffle: false
+    shuffle_choices: false
+    subset_list:
+    - example1
+    - example2
+    system_prompt: null
+    tags:
+    - Coding
+    train_split: null
+dataset_dir: /home/ubuntu22/.cache/modelscope/hub/datasets
+dataset_hub: modelscope
+datasets:
+- text2sql
+debug: false
+eval_backend: Native
+eval_batch_size: 1
+eval_config: null
+eval_type: openai_api
+evalscope_version: 1.4.1
+generation_config:
+  batch_size: 1
+  max_tokens: 2048
+  temperature: 0.0
+  timeout: 600
+ignore_errors: false
+judge_model_args: {}
+judge_strategy: auto
+judge_worker_num: 1
+limit: null
+model: deepseek-chat
+model_args: {}
+model_id: deepseek-chat
+model_task: text_generation
+no_timestamp: true
+repeats: 1
+rerun_review: false
+sandbox_manager_config: {}
+sandbox_type: docker
+seed: 42
+stream: null
+timeout: 600
+use_cache: null
+use_sandbox: false
+work_dir: ./results/text2sql/deepseek-chat_671B

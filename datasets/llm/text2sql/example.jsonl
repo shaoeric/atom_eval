@@ -1,5 +1,0 @@
-{"question":"查询所有工资超过 5000 的员工姓名和入职日期。","schema":["CREATE TABLE employees (id INT, name TEXT, department TEXT, salary INT, hire_date DATE);"],"ground_truth":"SELECT name, hire_date FROM employees WHERE salary > 5000;"}
-{"question":"统计每个部门的员工人数。","schema":["CREATE TABLE employees (id INT, name TEXT, department TEXT, salary INT, hire_date DATE);"],"ground_truth":"SELECT department, COUNT(*) FROM employees GROUP BY department;"}
-{"question":"找出 2023 年以后入职的员工。","schema":["CREATE TABLE employees (id INT, name TEXT, department TEXT, salary INT, hire_date DATE);"],"ground_truth":"SELECT * FROM employees WHERE hire_date > '2023-01-01';"}
-{"question":"查询销售部 (Sales) 工资最高的员工姓名。","schema":["CREATE TABLE employees (id INT, name TEXT, department TEXT, salary INT, hire_date DATE);"],"ground_truth":"SELECT name FROM employees WHERE department = 'Sales' ORDER BY salary DESC LIMIT 1;"}
-{"question":"计算所有员工的平均工资。","schema":["CREATE TABLE employees (id INT, name TEXT, department TEXT, salary INT, hire_date DATE);"],"ground_truth":"SELECT AVG(salary) FROM employees;"}
