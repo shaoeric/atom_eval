@@ -25,6 +25,14 @@ LLM_DATASET_CONFIG = {
             "example1",
             "example2",
         ],
+    },
+    "halu_eval": {  # halueval benchmark
+        "dataset_id": os.path.join(DATASETS_DIR, "llm", "halueval"),  # 使用 dataset_id 覆盖 adapter 中的默认值
+        "subset_list": [
+            "dialogue_samples",
+            "qa_samples",
+            "summarization_samples",
+        ],
     }
 }
 

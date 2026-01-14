@@ -1,0 +1,4 @@
+{"knowledge": "新奥尔良泄洪运河大约长3.6英里。奥古斯塔运河大约长7英里。", "question": "新奥尔良泄洪运河与奥古斯塔运河的长度相同吗？", "answer": "不，新奥尔良泄洪运河长3.6英里，而奥古斯塔运河长7英里。", "hallucination": "NO"}
+{"knowledge": "新奥尔良泄洪运河大约长3.6英里。奥古斯塔运河大约长7英里。", "question": "新奥尔良泄洪运河与奥古斯塔运河的长度相同吗？", "answer": "是的，两条运河长度相同。", "hallucination": "YES"}
+{"knowledge": "Python是一种高级编程语言，由Guido van Rossum在1991年首次发布。", "question": "Python编程语言是什么时候首次发布的？", "answer": "Python编程语言在1991年首次发布。", "hallucination": "NO"}
+{"knowledge": "Python是一种高级编程语言，由Guido van Rossum在1991年首次发布。", "question": "Python编程语言是什么时候首次发布的？", "answer": "Python编程语言在2000年首次发布。", "hallucination": "YES"}

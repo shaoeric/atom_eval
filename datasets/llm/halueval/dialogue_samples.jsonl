@@ -1,0 +1,4 @@
+{"knowledge": "克里斯托弗·诺兰执导了《黑暗骑士》。", "dialogue_history": "[用户]: 《黑暗骑士》的导演是谁？", "response": "克里斯托弗·诺兰执导了《黑暗骑士》。", "hallucination": "NO"}
+{"knowledge": "克里斯托弗·诺兰执导了《黑暗骑士》。", "dialogue_history": "[用户]: 《黑暗骑士》的导演是谁？", "response": "史蒂文·斯皮尔伯格执导了《黑暗骑士》。", "hallucination": "YES"}
+{"knowledge": "北京是中国的首都。", "dialogue_history": "[用户]: 中国的首都是哪里？", "response": "中国的首都是北京。", "hallucination": "NO"}
+{"knowledge": "北京是中国的首都。", "dialogue_history": "[用户]: 中国的首都是哪里？", "response": "中国的首都是上海。", "hallucination": "YES"}
