@@ -40,6 +40,12 @@ LLM_DATASET_CONFIG = {
             "frames_dataset",
         ],
     },
+    'general_fc': {
+        "local_path": os.path.join(DATASETS_DIR, "llm", "function_call"),  # 自定义数据集根目录
+        "subset_list": [
+            "example"
+        ]       # 对应 example.jsonl
+    },
 }
 
 
