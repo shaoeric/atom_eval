@@ -45,45 +45,8 @@ class HaluEvalAdapter(DefaultDataAdapter):
         super().__init__(**kwargs)
         self.add_overall_metric = False
 
-    def load(self):
-        """
-        Load the HaluEval dataset from local JSONL files.
-        
-        This method overrides the default loading behavior to use LocalDataLoader
-        directly, which properly handles JSONL files in a directory.
-        """
-        # Get the dataset path from dataset_id (which may be overridden by dataset_args)
-        dataset_path = self.dataset_id
-        
-        # If the path exists locally, use LocalDataLoader
-        if os.path.exists(dataset_path):
-            logger.info(f'Loading HaluEval dataset from local path: {dataset_path}')
-            
-            # Load each subset using LocalDataLoader
-            subset_dict = {}
-            for subset in self.subset_list:
-                # Create a wrapper function that sets current_subset_name before calling record_to_sample
-                self.current_subset_name = subset
-                
-                # LocalDataLoader will automatically find JSONL files in the directory
-                # It will try: {subset}_{split}.jsonl, {subset}.jsonl, or any .jsonl file
-                dataset = LocalDataLoader(
-                    data_id_or_path=dataset_path,
-                    split=self.eval_split,
-                    subset=subset,
-                    sample_fields=self.record_to_sample,
-                    filter_func=self.sample_filter,
-                    limit=self.limit,
-                    repeats=self.repeats,
-                    shuffle=self.shuffle,
-                ).load()
-                
-                subset_dict[subset] = dataset
-            
-            test_dataset = DatasetDict(subset_dict)
-            return test_dataset, None
-        else:
-            raise ValueError(f'Local path {dataset_path} does not exist')
+    def load_from_disk(self, **kwargs):
+        return super().load_from_disk(use_local_loader=True)
 
     def record_to_sample(self, record: Dict[str, Any]) -> Sample:
         if self.current_subset_name == 'dialogue_samples':

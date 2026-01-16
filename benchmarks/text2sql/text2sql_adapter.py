@@ -34,43 +34,8 @@ def extract_sql(text):
 class Text2SQLAdapter(DefaultDataAdapter):
     """Adapter for Text2SQL benchmark with AST similarity evaluation."""
 
-    def load(self):
-        """
-        Load the Text2SQL dataset from local file system.
-        
-        This method overrides the default loading behavior to use LocalDataLoader
-        directly, which properly handles JSONL files in a directory.
-        """
-        # Get the dataset path from dataset_id (which may be overridden by dataset_args)
-        dataset_path = self.dataset_id
-        
-        # If the path exists locally, use LocalDataLoader
-        if os.path.exists(dataset_path):
-            logger.info(f'Loading Text2SQL dataset from local path: {dataset_path}')
-            
-            # Load each subset using LocalDataLoader
-            subset_dict = {}
-            for subset in self.subset_list:
-                # LocalDataLoader will automatically find JSONL files in the directory
-                # It will try: {subset}_{split}.jsonl, {subset}.jsonl, or any .jsonl file
-                dataset = LocalDataLoader(
-                    data_id_or_path=dataset_path,
-                    split=self.eval_split,
-                    subset=subset,
-                    sample_fields=self.record_to_sample,
-                    filter_func=self.sample_filter,
-                    limit=self.limit,
-                    repeats=self.repeats,
-                    shuffle=self.shuffle,
-                ).load()
-                
-                subset_dict[subset] = dataset
-            
-            test_dataset = DatasetDict(subset_dict)
-            return test_dataset, None
-        else:
-            # Fallback to default loading for remote datasets
-            return super().load()
+    def load_from_disk(self, **kwargs):
+        return super().load_from_disk(use_local_loader=True)
 
     def record_to_sample(self, record: Dict[str, Any]) -> Sample:
         """Convert a data record to a Sample object."""

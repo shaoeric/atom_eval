@@ -61,42 +61,8 @@ class FramesAdapter(DefaultDataAdapter):
             self._use_llm_judge = True
             logger.info("LLM judge is enabled for FRAMES evaluation")
         
-    def load(self):
-        """
-        Load the FRAMES dataset from local JSONL files.
-        
-        This method overrides the default loading behavior to use LocalDataLoader
-        directly, which properly handles JSONL files in a directory.
-        """
-        # Get the dataset path from dataset_id (which may be overridden by dataset_args)
-        dataset_path = self.dataset_id
-        
-        # If the path exists locally, use LocalDataLoader
-        if os.path.exists(dataset_path):
-            logger.info(f'Loading FRAMES dataset from local path: {dataset_path}')
-            
-            # Load each subset using LocalDataLoader
-            subset_dict = {}
-            for subset in self.subset_list:
-                # LocalDataLoader will automatically find JSONL files in the directory
-                # It will try: {subset}_{split}.jsonl, {subset}.jsonl, or any .jsonl file
-                dataset = LocalDataLoader(
-                    data_id_or_path=dataset_path,
-                    split=self.eval_split,
-                    subset=subset,
-                    sample_fields=self.record_to_sample,
-                    filter_func=self.sample_filter,
-                    limit=self.limit,
-                    repeats=self.repeats,
-                    shuffle=self.shuffle,
-                ).load()
-                
-                subset_dict[subset] = dataset
-            
-            test_dataset = DatasetDict(subset_dict)
-            return test_dataset, None
-        else:
-            raise ValueError(f'Local path {dataset_path} does not exist')
+    def load_from_disk(self, **kwargs):
+        return super().load_from_disk(use_local_loader=True)
 
     def record_to_sample(self, record: Dict[str, Any]) -> Sample:
         """
@@ -159,7 +125,6 @@ class FramesAdapter(DefaultDataAdapter):
         """
         Calculate accuracy score by matching prediction with reference.
         """
-        raise ValueError('match_score is not expected')
         from evalscope.metrics import exact_match
         from .utils import normalize_answer
 
