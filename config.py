@@ -33,7 +33,13 @@ LLM_DATASET_CONFIG = {
             "qa_samples",
             "summarization_samples",
         ],
-    }
+    },
+    "FRAMES": {  # frames benchmark
+        "dataset_id": os.path.join(DATASETS_DIR, "llm", "frames"),  # 使用 dataset_id 覆盖 adapter 中的默认值
+        "subset_list": [
+            "frames_dataset",
+        ],
+    },
 }
 
 
