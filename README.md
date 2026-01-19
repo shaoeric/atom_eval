@@ -13,6 +13,7 @@ Atom Eval 是一个灵活、可扩展的大语言模型（LLM）评估框架，�
 - 📊 **灵活配置**：通过环境变量和配置文件轻松管理模型和数据集
 - 📈 **详细报告**：自动生成评估结果、日志和可视化报告
 - 🔧 **易于扩展**：清晰的代码结构，便于添加新的评估任务和模型
+- 🤖 **智能需求分析**：基于 AgentScope 的智能需求分析系统，自动推荐合适的 benchmark 并生成对比报告
 
 ## 为什么需要自定义 Benchmark 评测？
 
@@ -74,6 +75,8 @@ pip install -r requirement.txt
 - `datasets==3.6.0`: 数据集处理
 - `pandas==2.3.3`: 数据处理
 - `numpy==2.4.1`: 数值计算
+- `agentscope`: AgentScope 框架（用于智能需求分析）
+- `pydantic`: 数据验证和结构化输出
 
 完整依赖列表请参考 `requirement.txt`。
 
@@ -122,6 +125,28 @@ Atom Eval 目前支持以下评估任务，每个任务都有详细的 README �
 - **评估指标**：准确率（acc），支持标准评估和 LLM Judge 评估
 - **详细文档**：[benchmarks/frames/README.md](benchmarks/frames/README.md)
 
+## 智能需求分析系统 (Analyzer)
+
+Atom Eval 提供了基于 AgentScope 的智能需求分析系统，可以根据用户需求自动推荐合适的 benchmark，并执行多模型对比评测。
+
+### 主要功能
+
+- **智能需求分析**：使用 ReAct Agent 分析用户需求，自动提取关键能力标签
+- **Benchmark 自动推荐**：根据需求分析结果，自动推荐最合适的 benchmark 并生成选择理由
+- **多模型批量评测**：支持同时评测多个候选模型，自动生成所有 model 和 benchmark 的组合配置
+- **自动执行评测**：自动执行所有评测任务，无需手动干预
+- **智能评估总结**：使用 ReAct Agent 自动生成模型对比报告，包括能力总结、对比分析和评分排序
+
+
+### 输出结果
+
+评测完成后，系统会在工作目录生成：
+- `config.json`: 配置文件，包含需求分析结果和评测配置
+- `report.md`: Markdown 格式的模型对比报告，包含评分排序、能力总结和推荐建议
+- 各 benchmark 的详细评测结果
+
+详细文档请参考：[analyzer/README.md](analyzer/README.md)
+
 ## 自定义模型配置
 
 Atom Eval 支持添加自定义模型进行评估。详细配置说明请参考：
@@ -150,6 +175,18 @@ cp .env_example .env
 ```
 
 ### 2. 运行评估
+
+#### 方式一：使用智能需求分析系统（推荐）
+
+```bash
+# 分析需求并自动执行评测
+python analyzer/main.py --requirement "我需要评估模型在长文本推理和RAG方面的能力"
+
+# 指定多个模型进行对比评测
+python analyzer/main.py --requirement "评估模型的代码生成能力" --models deepseek-chat deepseek-reasoner
+```
+
+#### 方式二：直接运行单个 Benchmark
 
 ```bash
 # 运行 General QA 评估
@@ -194,6 +231,13 @@ python benchmarks/text2sql/main.py --model deepseek-chat --batch_size 4 --max_to
 
 ```
 atom_eval/
+├── analyzer/             # 智能需求分析系统
+│   ├── requirement_agent.py  # 需求分析 Agent
+│   ├── summary_agent.py     # 评估总结 Agent
+│   ├── benchmark_registry.py # Benchmark 元数据注册表
+│   ├── config_generator.py   # 配置生成器
+│   ├── matcher.py            # 需求匹配引擎
+│   └── main.py               # 主入口程序
 ├── benchmarks/              # 评估任务实现
 │   ├── general_qa/         # 通用问答任务
 │   ├── text2sql/          # Text2SQL 任务
@@ -208,10 +252,13 @@ atom_eval/
 │       ├── halueval/     # HaluEval 数据集
 │       └── frames/       # FRAMES 数据集
 ├── results/              # 评估结果输出目录
-│   └── {benchmark_name}/ # 各任务的评估结果
-│       └── {model_name}_{params}/
-│           ├── reviews/  # 详细评估结果
-│           └── reports/  # 评估报告
+│   └── {timestamp}/      # 时间戳目录（analyzer 生成）
+│       ├── config.json   # 配置文件
+│       ├── report.md      # 评估总结报告
+│       └── {benchmark_name}/ # 各任务的评估结果
+│           └── {model_name}_{params}/
+│               ├── reviews/  # 详细评估结果
+│               └── reports/  # 评估报告
 ├── docs/                 # 文档目录
 │   ├── custom_model.md  # 自定义模型配置文档
 │   └── custom_benchmark.md # 自定义 Benchmark 配置文档
@@ -223,11 +270,25 @@ atom_eval/
 
 ## 评估结果
 
+### 单个 Benchmark 评估结果
+
 评估结果保存在 `results/{benchmark_name}/{model_name}_{params}/` 目录下，包括：
 
 - `reviews/`: 每个样本的详细评估结果（JSONL 格式）
 - `reports/`: 汇总评估报告（JSON 格式）
 - `logs/`: 评估日志文件
+
+### Analyzer 生成的评估结果
+
+使用 analyzer 进行评测时，结果保存在 `results/{timestamp}/` 目录下，包括：
+
+- `config.json`: 配置文件，包含需求分析结果、推荐的 benchmark 和所有评测配置
+- `report.md`: Markdown 格式的模型对比报告，包含：
+  - 模型评分排序表
+  - 按 Benchmark 的能力总结
+  - 模型对比分析
+  - 整体总结和建议
+- `{benchmark_name}/{model_name}_{params}/`: 各 benchmark 和 model 的详细评测结果
 
 ## 更新日志
 
